@@ -24,6 +24,13 @@ tasksDiv.addEventListener("click",(e)=>{
         deleteTaskWith(e.target.parentElement.getAttribute("data-id"));
 
     }
+    //Task ELement
+    if(e.target.classList.contain("task")){
+        // Toggle Completed For The Task
+    toggleStatusTaskWith(e.target.getAttribute("data-id"));
+    // Toggle Done Class
+    e.target.classList.toggle("done");
+    }
 })
 
 
@@ -67,8 +74,8 @@ function addElementsToPageFrom(arraysOfTasks){
 
 
 }
-function addDataToLocalStorageFrom(arrayOfTasks) {
-    window.localStorage.setItem("tasks", JSON.stringify(arrayOfTasks));
+function addDataToLocalStorageFrom(arraysOfTasks) {
+    window.localStorage.setItem("tasks", JSON.stringify(arraysOfTasks));
   }
 
 function getDataFromLocalStorage(){
@@ -87,3 +94,12 @@ function deleteTaskWith(taskId){
     arraysOfTasks = arraysOfTasks.filter((task) => task.id != taskId);
   addDataToLocalStorageFrom(arraysOfTasks);
 }
+
+function toggleStatusTaskWith(taskId) {
+    for (let i = 0; i < arraysOfTasks.length; i++) {
+      if (arraysOfTasks[i].id == taskId) {
+        arraysOfTasks[i].completed == false ? (arraysOfTasks[i].completed = true) : (arraysOfTasks[i].completed = false);
+      }
+    }
+    addDataToLocalStorageFrom(arraysOfTasks);
+  }
